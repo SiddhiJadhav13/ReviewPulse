@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReviewPulse AI - E-commerce Customer Reviews Analytics</title>
+  <meta name="description" content="Clean, professional analytics dashboard for ecommerce review sentiment analysis, positive and negative feedback categorization, and AI insights.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js CDN for interactive charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">R</div>
+        <span class="brand-name">ReviewPulse AI</span>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item" data-tab="reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Reviews Feed
+        </a>
+        <a href="#" class="nav-item" data-tab="insights">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          AI Insights
+        </a>
+        <a href="#" class="nav-item" data-tab="platforms">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          Platforms
+        </a>
+        <a href="#" class="nav-item" data-tab="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Settings
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="user-avatar">SJ</div>
+        <div class="user-info">
+          <span class="user-name">Siddhi Jadhav</span>
+          <span class="user-role">Brand Owner</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-wrapper">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="mobile-toggle" id="mobileToggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </div>
+
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" class="search-input" id="globalSearch" placeholder="Search reviews, complaints...">
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-secondary" id="btnDownloadCsv">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download CSV
+          </button>
+          
+          <button class="btn-primary" id="btnGenSummary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Generate AI Summary
+          </button>
+
+          <!-- Notification Panel -->
+          <div class="btn-icon-wrapper">
+            <button class="btn-icon" id="btnNotifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-dot" id="notifDot"></span>
+            </button>
+            
+            <div class="notification-dropdown" id="notificationDropdown">
+              <div class="notification-header">
+                <span>Recent Notifications</span>
+                <span style="font-size: 11px; color: var(--primary); font-weight: normal; cursor: pointer;" id="btnMarkRead">Mark all read</span>
+              </div>
+              <div class="notification-list" id="notificationList">
+                <!-- Notifications populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard View Body -->
+      <div class="content-body" id="dashboardView">
+        
+        <!-- Page Greeting Header -->
+        <div class="page-intro">
+          <div class="page-title">
+            <h1 id="pageHeadingTitle">ReviewPulse AI Dashboard</h1>
+            <p>Track metrics, sentiment analysis, and customer feedback across Amazon, Flipkart, Shopify, Google, & Instagram.</p>
+          </div>
+          <div class="action-row">
+            <button class="btn-secondary" id="btnExportReport">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <polyline points="16 6 12 2 8 6"></polyline>
+                <line x1="12" y1="2" x2="12" y2="15"></line>
+              </svg>
+              Export Report
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid -->
+        <div class="kpi-grid">
+          <!-- Total Reviews Card -->
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Total Reviews</span>
+              <div class="kpi-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpiTotalReviews">8,452</div>
+            <div class="kpi-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              <span>+12.4% this month</span>
+            </div>
+          </div>
+
+          <!-- Positive Reviews Card -->
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Positive Reviews</span>
+              <div class="kpi-header-icon" style="background-color: var(--color-success-bg); color: var(--color-success);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="stroke: var(--color-success);"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpiPositiveReviews">6,626</div>
+            <div class="kpi-trend positive" id="kpiPositivePct">
+              <span>78.4% of total</span>
+            </div>
+          </div>
+
+          <!-- Negative Reviews Card -->
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Negative Reviews</span>
+              <div class="kpi-header-icon" style="background-color: var(--color-danger-bg); color: var(--color-danger);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="stroke: var(--color-danger);"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpiNegativeReviews">1,022</div>
+            <div class="kpi-trend negative" id="kpiNegativePct">
+              <span>12.1% of total</span>
+            </div>
+          </div>
+
+          <!-- Average Rating Card -->
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Average Rating</span>
+              <div class="kpi-header-icon" style="background-color: var(--color-warning-bg); color: var(--color-warning);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="stroke: var(--color-warning);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpiAvgRating">4.3 ★</div>
+            <div class="kpi-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              <span>+0.2 vs last month</span>
+            </div>
+          </div>
+
+          <!-- Platforms Connected Card -->
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Platforms Connected</span>
+              <div class="kpi-header-icon" style="background-color: var(--color-info-bg); color: var(--color-info);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="stroke: var(--color-info);"><path d="M16.5 9.4 7.55 4.24a1.79 1.79 0 0 0-2.5 1.55v12.42a1.79 1.79 0 0 0 2.5 1.55l8.95-5.16a1.79 1.79 0 0 0 0-3.1Z"></path></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpiPlatformsConnected">5 / 5</div>
+            <div class="kpi-trend positive">
+              <span>100% active sync</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Details (2 Column Grid) -->
+        <div class="dashboard-grid-main">
+          
+          <!-- Left Column (Charts & Reviews) -->
+          <div class="grid-left-col">
+            
+            <!-- Charts Panel -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Sentiment & Platform Analytics</h3>
+                  <p class="card-subtitle">Detailed breakout of sentiment shares and platform distributions.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="charts-row-inner">
+                  <!-- Sentiment Pie Chart -->
+                  <div>
+                    <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; text-align: center;">Sentiment Analysis</h4>
+                    <div class="chart-container">
+                      <canvas id="sentimentChart"></canvas>
+                    </div>
+                  </div>
+                  <!-- Platform-wise Distribution Chart -->
+                  <div>
+                    <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; text-align: center;">Reviews by Platform</h4>
+                    <div class="chart-container">
+                      <canvas id="platformDistributionChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Feedback Grid (Complaints & Positive Feedback side-by-side) -->
+            <div class="feedback-grid">
+              
+              <!-- Top Complaints -->
+              <div class="card">
+                <div class="card-header" style="border-bottom-color: #fee2e2;">
+                  <div>
+                    <h3 class="card-title" style="color: #b91c1c;">Top Customer Complaints</h3>
+                    <p class="card-subtitle">Categorized issues causing negative ratings.</p>
+                  </div>
+                </div>
+                <div class="card-body" id="complaintsList">
+                  <!-- Populated by JavaScript -->
+                </div>
+              </div>
+
+              <!-- Top Positive Feedback -->
+              <div class="card">
+                <div class="card-header" style="border-bottom-color: #d1fae5;">
+                  <div>
+                    <h3 class="card-title" style="color: #047857;">Top Positive Feedback</h3>
+                    <p class="card-subtitle">Drivers behind positive ratings.</p>
+                  </div>
+                </div>
+                <div class="card-body" id="positivesList">
+                  <!-- Populated by JavaScript -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Recent Reviews Feed Section -->
+            <div class="card" id="reviewsFeedCard">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Recent Reviews Feed</h3>
+                  <p class="card-subtitle">Real-time reviews feed with automated sentiment tags.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                
+                <!-- Filter Bar (Chips) -->
+                <div class="filter-bar">
+                  <div class="platform-chips" id="platformChipsContainer">
+                    <button class="chip active" data-platform="All">All Platforms</button>
+                    <button class="chip" data-platform="Amazon">Amazon</button>
+                    <button class="chip" data-platform="Flipkart">Flipkart</button>
+                    <button class="chip" data-platform="Shopify">Shopify</button>
+                    <button class="chip" data-platform="Google Reviews">Google Reviews</button>
+                    <button class="chip" data-platform="Instagram">Instagram</button>
+                  </div>
+                  
+                  <div style="font-size: 12px; color: var(--text-muted);" id="filteredCount">
+                    Showing 0 of 0 reviews
+                  </div>
+                </div>
+
+                <!-- Feed list -->
+                <div class="reviews-list" id="reviewsList">
+                  <!-- Populated by JS -->
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column (AI Insights) -->
+          <div class="grid-right-col">
+            
+            <!-- AI Insights Panel -->
+            <div class="card insights-panel">
+              <div class="card-header" style="background: transparent; border-bottom: 1px solid rgba(191, 219, 254, 0.6);">
+                <div class="insights-header">
+                  <svg class="insights-spark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  <div>
+                    <h3 class="card-title" style="color: #1e3a8a;">AI Insights & recommendations</h3>
+                    <p class="card-subtitle" style="color: #4b5563;">Automatically generated action items based on reviews.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body" style="background: transparent;">
+                <div class="insights-list" id="insightsList">
+                  <!-- Populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Platforms View Body (Initially hidden) -->
+      <div class="content-body" id="platformsView" style="display: none;">
+        <div class="page-intro">
+          <div class="page-title">
+            <h1>Platforms Integration Manager</h1>
+            <p>Connect and configure review feeds from multiple sales channels and social media.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Connected Channels</h3>
+              <p class="card-subtitle">Platforms actively syncing reviews with ReviewPulse AI.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="platforms-status-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              
+              <!-- Amazon Sync Card -->
+              <div class="platform-sync-card" style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; display: flex; flex-direction: column; gap: 12px; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="platform-badge platform-amazon" style="font-size: 13px; padding: 4px 10px;">Amazon US/IN</span>
+                  <span style="font-size: 11px; color: var(--color-success); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Active Syncing
+                  </span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-secondary);">Syncing review ratings, comments, and customer details automatically.</p>
+                <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 8px;">
+                  <span>Last Synced: 10 mins ago</span>
+                  <span>Credentials: Valid</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; width: 100%; justify-content: center;" onclick="showToast('Initiating force Amazon sync...', 'success')">Sync Now</button>
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; color: var(--color-danger); border-color: #fee2e2;" onclick="confirm('Are you sure you want to disconnect Amazon?') && showToast('Amazon disconnected successfully.', 'error')">Disconnect</button>
+                </div>
+              </div>
+
+              <!-- Flipkart Sync Card -->
+              <div class="platform-sync-card" style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="platform-badge platform-flipkart" style="font-size: 13px; padding: 4px 10px;">Flipkart Store</span>
+                  <span style="font-size: 11px; color: var(--color-success); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Active Syncing
+                  </span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-secondary);">Tracking seller feedback and product-specific Q&A columns.</p>
+                <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 8px;">
+                  <span>Last Synced: 15 mins ago</span>
+                  <span>Credentials: Valid</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; width: 100%; justify-content: center;" onclick="showToast('Initiating force Flipkart sync...', 'success')">Sync Now</button>
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; color: var(--color-danger); border-color: #fee2e2;" onclick="confirm('Are you sure you want to disconnect Flipkart?') && showToast('Flipkart disconnected successfully.', 'error')">Disconnect</button>
+                </div>
+              </div>
+
+              <!-- Shopify Sync Card -->
+              <div class="platform-sync-card" style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="platform-badge platform-shopify" style="font-size: 13px; padding: 4px 10px;">Shopify Direct</span>
+                  <span style="font-size: 11px; color: var(--color-success); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Active Syncing
+                  </span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-secondary);">Direct API integration with Shopify Reviews plugin.</p>
+                <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 8px;">
+                  <span>Last Synced: 3 mins ago</span>
+                  <span>Credentials: Valid</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; width: 100%; justify-content: center;" onclick="showToast('Initiating force Shopify sync...', 'success')">Sync Now</button>
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; color: var(--color-danger); border-color: #fee2e2;" onclick="confirm('Are you sure you want to disconnect Shopify?') && showToast('Shopify disconnected successfully.', 'error')">Disconnect</button>
+                </div>
+              </div>
+
+              <!-- Google Reviews Sync Card -->
+              <div class="platform-sync-card" style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="platform-badge platform-google" style="font-size: 13px; padding: 4px 10px;">Google Business</span>
+                  <span style="font-size: 11px; color: var(--color-success); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Active Syncing
+                  </span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-secondary);">Syncing local storefront ratings and maps customer feedback.</p>
+                <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 8px;">
+                  <span>Last Synced: 1 hr ago</span>
+                  <span>Credentials: Valid</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; width: 100%; justify-content: center;" onclick="showToast('Initiating force Google Business sync...', 'success')">Sync Now</button>
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; color: var(--color-danger); border-color: #fee2e2;" onclick="confirm('Are you sure you want to disconnect Google Business?') && showToast('Google Business disconnected successfully.', 'error')">Disconnect</button>
+                </div>
+              </div>
+
+              <!-- Instagram Sync Card -->
+              <div class="platform-sync-card" style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="platform-badge platform-instagram" style="font-size: 13px; padding: 4px 10px;">Instagram Business</span>
+                  <span style="font-size: 11px; color: var(--color-success); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                    <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Active Syncing
+                  </span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-secondary);">Tracking mentions, post replies, and direct product shopping comments.</p>
+                <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 8px;">
+                  <span>Last Synced: 20 mins ago</span>
+                  <span>Credentials: Valid</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; width: 100%; justify-content: center;" onclick="showToast('Initiating force Instagram sync...', 'success')">Sync Now</button>
+                  <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px; color: var(--color-danger); border-color: #fee2e2;" onclick="confirm('Are you sure you want to disconnect Instagram?') && showToast('Instagram disconnected successfully.', 'error')">Disconnect</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Available Integrations</h3>
+              <p class="card-subtitle">Connect new review channels to expand customer feedback analysis.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+              
+              <!-- WooCommerce Integration -->
+              <div style="border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 12px; background: #fafafa;">
+                <div style="font-weight: 700; color: #7f54b3; font-size: 15px;">WooCommerce</div>
+                <p style="font-size: 11px; color: var(--text-muted);">Sync ratings and product reviews from self-hosted store.</p>
+                <button class="btn-primary" style="font-size: 11px; padding: 6px 12px; width: 100%; justify-content: center;" onclick="showToast('WooCommerce setup wizard loaded.', 'info')">Connect Store</button>
+              </div>
+
+              <!-- Trustpilot Integration -->
+              <div style="border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 12px; background: #fafafa;">
+                <div style="font-weight: 700; color: #00b67a; font-size: 15px;">Trustpilot</div>
+                <p style="font-size: 11px; color: var(--text-muted);">Import company reviews and trust score ratings directly.</p>
+                <button class="btn-primary" style="font-size: 11px; padding: 6px 12px; width: 100%; justify-content: center;" onclick="showToast('Trustpilot verification wizard loaded.', 'info')">Connect Profile</button>
+              </div>
+
+              <!-- eBay Integration -->
+              <div style="border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 12px; background: #fafafa;">
+                <div style="font-weight: 700; color: #e53238; font-size: 15px;">eBay Seller Portal</div>
+                <p style="font-size: 11px; color: var(--text-muted);">Sync seller stars and order-specific comments feed.</p>
+                <button class="btn-primary" style="font-size: 11px; padding: 6px 12px; width: 100%; justify-content: center;" onclick="showToast('eBay connection panel loaded.', 'info')">Connect Account</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings View Body (Initially hidden) -->
+      <div class="content-body" id="settingsView" style="display: none;">
+        <div class="page-intro">
+          <div class="page-title">
+            <h1>System Settings</h1>
+            <p>Configure dashboard syncing periods, alert priorities, profile credentials, and access settings.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+          <!-- Settings Configurations -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">General Settings</h3>
+                <p class="card-subtitle">Manage synchronizers and background alert intervals.</p>
+              </div>
+            </div>
+            <div class="card-body" style="display: flex; flex-direction: column; gap: 20px;">
+              
+              <!-- Sync Frequency -->
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Sync Frequency</label>
+                <select style="border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--border-radius-sm); font-size: 13px; outline: none; background: white;" id="selectSyncFreq">
+                  <option value="realtime">Real-time (Active Socket Webhooks)</option>
+                  <option value="hourly">Every 1 Hour (Standard Rest API)</option>
+                  <option value="6hours" selected>Every 6 Hours</option>
+                  <option value="daily">Daily Batch Digest</option>
+                </select>
+                <p style="font-size: 11px; color: var(--text-muted);">Faster sync cycles consume additional API credits depending on platform rate limits.</p>
+              </div>
+
+              <!-- Alert Threshold -->
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Review Sentiment Alert Threshold</label>
+                <select style="border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--border-radius-sm); font-size: 13px; outline: none; background: white;" id="selectAlertThreshold">
+                  <option value="1star">Only 1-Star reviews (Urgent)</option>
+                  <option value="2stars" selected>All reviews under 3 Stars (Recommended)</option>
+                  <option value="neutral">Include Neutral reviews (under 4 Stars)</option>
+                  <option value="none">Disable push alert notifications</option>
+                </select>
+                <p style="font-size: 11px; color: var(--text-muted);">Pushes warnings to notification panel and triggers email updates.</p>
+              </div>
+
+              <!-- Notification Channels -->
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <label style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Notification Channels</label>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); cursor: pointer;">
+                    <input type="checkbox" checked style="width: 16px; height: 16px; accent-color: var(--primary);"> Send email digests weekly to siddhi.jadhav@example.com
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); cursor: pointer;">
+                    <input type="checkbox" checked style="width: 16px; height: 16px; accent-color: var(--primary);"> Enable in-app notifications panel updates
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); cursor: pointer;">
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--primary);"> Slack Integration channel updates (#reviews-pulse)
+                  </label>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid var(--border-color); padding-top: 16px; display: flex; justify-content: flex-end;">
+                <button class="btn-primary" onclick="showToast('Configuration settings saved successfully.', 'success')">Save Settings</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- License & API Details -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">License & API details</h3>
+                <p class="card-subtitle">View API access and plan attributes.</p>
+              </div>
+            </div>
+            <div class="card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">License Key</div>
+                <div style="display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 8px 12px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); font-family: monospace; font-size: 12px;">
+                  <span>RP-AI-••••-••••-7X9P</span>
+                  <span style="color: var(--primary); cursor: pointer; font-family: var(--font-sans); font-size: 11px; font-weight: 600;" onclick="navigator.clipboard.writeText('RP-AI-58F9-2K8L-7X9P').then(() => showToast('License key copied to clipboard!', 'success')).catch(() => showToast('Failed to copy', 'error'))">Copy</span>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">Plan Level</div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--primary);">Enterprise Starter Plan</div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Next billing date: July 17, 2026</p>
+              </div>
+
+              <div style="border-top: 1px solid var(--border-color); padding-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary);">
+                  <span>Monthly Review limit:</span>
+                  <span style="font-weight: 600;">8,452 / 25,000</span>
+                </div>
+                <div style="width: 100%; height: 6px; background-color: #f1f5f9; border-radius: 3px; overflow: hidden;">
+                  <div style="width: 33.8%; height: 100%; background-color: var(--primary);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- AI Summary Modal -->
+  <div class="modal-overlay" id="aiModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          ReviewPulse AI Summary
+        </h3>
+        <button class="modal-close" id="btnCloseModal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- AI Loader Animation -->
+        <div class="ai-loader-container" id="aiLoader">
+          <div class="ai-pulse-ring">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+          </div>
+          <span class="ai-loader-text">Analyzing 8,452 reviews across channels...</span>
+        </div>
+
+        <!-- AI Typing Result Area -->
+        <div class="ai-summary-content" id="aiSummaryContent">
+          <!-- Text inserted by Typewriter JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCopyToClipboard">Copy to Clipboard</button>
+        <button class="btn-primary" id="btnDoneSummary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- App Main JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
